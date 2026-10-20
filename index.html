@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Good Day Events – Catering Menu</title>
+  <meta name="description" content="Select your perfect catering menu from Good Day Events. Choose from fresh juices, breakfast, biriyani, curries, desserts and more. Download a custom PDF instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="Good Day Events Logo" class="logo-img" id="logoImg" onerror="this.style.display='none';document.getElementById('logofallback').style.display='block'" />
+        <div id="logofallback" class="logo-fallback" style="display:none">Good Day<br/><small>EVENTS</small></div>
+      </div>
+      <h1 class="hero-title">Catering <span class="accent">Menu</span></h1>
+      <p class="hero-sub">Craft your perfect celebration — select any items below and download your personalised menu PDF instantly.</p>
+      <div class="hero-badges">
+        <span class="badge">🌿 Fresh Ingredients</span>
+        <span class="badge">👨‍🍳 Live Counters</span>
+        <span class="badge">✨ Premium Service</span>
+      </div>
+    </div>
+    <a href="#mainContent" class="scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </a>
+  </header>
+
+  <div class="action-bar" id="actionBar">
+    <div class="action-bar-inner">
+      <div class="selection-count">
+        <span class="count-num" id="selectedCount">0</span>
+        <span class="count-label">items selected</span>
+      </div>
+      <div class="action-btns">
+        <button class="btn-outline" onclick="clearAll()">Clear All</button>
+        <button class="btn-primary" onclick="generatePDF()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content" id="mainContent">
+    <div class="global-actions">
+      <h2 class="section-header-title">Build Your Menu</h2>
+      <p class="section-header-sub">Tap individual items or use category toggles to select everything you need</p>
+      <div class="global-btns">
+        <button class="global-btn" onclick="selectAllGlobal()">Select Everything</button>
+        <button class="global-btn ghost" onclick="clearAll()">Deselect All</button>
+      </div>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-card" data-category="Fresh Juice Live">
+        <div class="card-header" style="--cat-color:#4ade80;--cat-bg:#052e16">
+          <div class="cat-icon">🍹</div>
+          <div class="cat-info"><h3 class="cat-title">Fresh Juice Live</h3><span class="cat-count-badge" id="cnt-juice">0/4</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-juice',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-juice">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pineapple" data-cat="Fresh Juice Live" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pineapple</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Orange" data-cat="Fresh Juice Live" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Orange</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Water Melon" data-cat="Fresh Juice Live" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Water Melon</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mango" data-cat="Fresh Juice Live" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mango</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Welcome Drinks">
+        <div class="card-header" style="--cat-color:#fb923c;--cat-bg:#1c0701">
+          <div class="cat-icon">🥛</div>
+          <div class="cat-info"><h3 class="cat-title">Welcome Drinks</h3><span class="cat-count-badge" id="cnt-drinks">0/9</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-drinks',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-drinks">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pista Milk" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pista Milk</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Badam Milk" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Badam Milk</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mojito" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mojito</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Rose Milk" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Rose Milk</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mango Pulp" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mango Pulp</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Grape Pulp" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Grape Pulp</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mint Lime" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mint Lime</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Lime Juice" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Lime Juice</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Flavour Drinks" data-cat="Welcome Drinks" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Flavour Drinks</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Breakfast">
+        <div class="card-header" style="--cat-color:#fbbf24;--cat-bg:#1c1100">
+          <div class="cat-icon">🍽️</div>
+          <div class="cat-info"><h3 class="cat-title">Breakfast</h3><span class="cat-count-badge" id="cnt-breakfast">0/11</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-breakfast',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-breakfast">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Vada" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Vada</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Idli" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Idli</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Vellapam" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Vellapam</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Nool Putt" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Nool Putt</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Uppmavu" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Uppmavu</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Puttu" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Puttu</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Dosa" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Dosa</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Puri" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Puri</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pathiri" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pathiri</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Bread" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Bread</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Porotta" data-cat="Breakfast" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Porotta</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Bread Items (Live)">
+        <div class="card-header" style="--cat-color:#f97316;--cat-bg:#1a0900">
+          <div class="cat-icon">🫓</div>
+          <div class="cat-info"><h3 class="cat-title">Bread Items <em>(Live)</em></h3><span class="cat-count-badge" id="cnt-bread">0/14</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-bread',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-bread">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Vellapam (Live)" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Vellapam (Live)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chapathi" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chapathi</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Kerala Porotta" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Kerala Porotta</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Attaporotta" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Attaporotta</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Coin Porotta" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Coin Porotta</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Nool Putt (Live)" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Nool Putt (Live)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pathiri (Live)" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pathiri (Live)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Battura" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Battura</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Butter Nan" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Butter Nan</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Madak Chapathi" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Madak Chapathi</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Masala Dosa" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Masala Dosa</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Ghee Roast" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Ghee Roast</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Thattu Dosa" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Thattu Dosa</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Uttapam" data-cat="Bread Items (Live)" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Uttapam</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card featured" data-category="Biriyani">
+        <div class="card-header" style="--cat-color:#e879f9;--cat-bg:#1a0020">
+          <div class="cat-icon">🍛</div>
+          <div class="cat-info"><h3 class="cat-title">Biriyani</h3><span class="cat-count-badge" id="cnt-biriyani">0/6</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-biriyani',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-biriyani">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Dum Biriyani (Legon)" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Dum Biriyani (Legon)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Fried Biriyani (Broiler)" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Fried Biriyani (Broiler)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mutton Biriyani" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mutton Biriyani</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Ayakura Biriyani" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Ayakura Biriyani</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawns Biriyani" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawns Biriyani</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Biriyani" data-cat="Biriyani" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Biriyani</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Rice">
+        <div class="card-header" style="--cat-color:#a3e635;--cat-bg:#0d1a00">
+          <div class="cat-icon">🍚</div>
+          <div class="cat-info"><h3 class="cat-title">Rice</h3><span class="cat-count-badge" id="cnt-rice">0/2</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-rice',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-rice">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fried Rice" data-cat="Rice" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fried Rice</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Ghee Rice" data-cat="Rice" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Ghee Rice</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Chicken Curry">
+        <div class="card-header" style="--cat-color:#f43f5e;--cat-bg:#1f0008">
+          <div class="cat-icon">🍗</div>
+          <div class="cat-info"><h3 class="cat-title">Chicken Curry</h3><span class="cat-count-badge" id="cnt-chickencurry">0/5</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-chickencurry',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-chickencurry">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Nadan Varutharachath" data-cat="Chicken Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Nadan Varutharachath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Stew" data-cat="Chicken Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Stew</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Butter Chicken" data-cat="Chicken Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Butter Chicken</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pepper Chicken" data-cat="Chicken Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pepper Chicken</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Roast" data-cat="Chicken Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Roast</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Mutton Curry">
+        <div class="card-header" style="--cat-color:#dc2626;--cat-bg:#200000">
+          <div class="cat-icon">🥩</div>
+          <div class="cat-info"><h3 class="cat-title">Mutton Curry</h3><span class="cat-count-badge" id="cnt-muttoncurry">0/4</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-muttoncurry',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-muttoncurry">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mutton Nadan Varutharachath" data-cat="Mutton Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mutton Nadan Varutharachath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mutton Stew" data-cat="Mutton Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mutton Stew</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mutton Masala" data-cat="Mutton Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mutton Masala</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mutton Chaps" data-cat="Mutton Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mutton Chaps</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Chicken Dry Starter">
+        <div class="card-header" style="--cat-color:#fb923c;--cat-bg:#1a0800">
+          <div class="cat-icon">🍢</div>
+          <div class="cat-info"><h3 class="cat-title">Chicken Starter <em>(Dry)</em></h3><span class="cat-count-badge" id="cnt-chickenstarter">0/7</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-chickenstarter',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-chickenstarter">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken 65" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken 65</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Fry" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Fry</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Lollipop" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Lollipop</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Kondattam" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Kondattam</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Cutlet" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Cutlet</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Spring Roll" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Spring Roll</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chicken Tikka" data-cat="Chicken Dry Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chicken Tikka</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Vegetarian Starter">
+        <div class="card-header" style="--cat-color:#22c55e;--cat-bg:#001a0a">
+          <div class="cat-icon">🥗</div>
+          <div class="cat-info"><h3 class="cat-title">Vegetarian Starter</h3><span class="cat-count-badge" id="cnt-vegstarter">0/4</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-vegstarter',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-vegstarter">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Cutlet" data-cat="Vegetarian Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Cutlet</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Paneer Tikka" data-cat="Vegetarian Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Paneer Tikka</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Spring Roll" data-cat="Vegetarian Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Spring Roll</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="French Fries" data-cat="Vegetarian Starter" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">French Fries</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Prawns">
+        <div class="card-header" style="--cat-color:#38bdf8;--cat-bg:#001520">
+          <div class="cat-icon">🦐</div>
+          <div class="cat-info"><h3 class="cat-title">Prawns</h3><span class="cat-count-badge" id="cnt-prawns">0/5</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-prawns',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-prawns">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawn's Stew" data-cat="Prawns" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawn's Stew</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawn's Mulakithath" data-cat="Prawns" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawn's Mulakithath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawn's Varutharachath" data-cat="Prawns" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawn's Varutharachath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawn's Roast" data-cat="Prawns" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawn's Roast</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Prawn's Chilly" data-cat="Prawns" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Prawn's Chilly</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Fish">
+        <div class="card-header" style="--cat-color:#0ea5e9;--cat-bg:#000f1a">
+          <div class="cat-icon">🐟</div>
+          <div class="cat-info"><h3 class="cat-title">Fish</h3><span class="cat-count-badge" id="cnt-fish">0/5</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-fish',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-fish">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fish Molly" data-cat="Fish" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fish Molly</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fish Mulakithath" data-cat="Fish" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fish Mulakithath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fish Tava Fry" data-cat="Fish" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fish Tava Fry</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fish Pollichath" data-cat="Fish" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fish Pollichath</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fish Nadan Curry" data-cat="Fish" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fish Nadan Curry</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Vegetarian Curry">
+        <div class="card-header" style="--cat-color:#86efac;--cat-bg:#001a0a">
+          <div class="cat-icon">🥘</div>
+          <div class="cat-info"><h3 class="cat-title">Vegetarian Curry</h3><span class="cat-count-badge" id="cnt-vegcurry">0/8</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-vegcurry',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-vegcurry">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Kuruma" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Kuruma</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Stew" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Stew</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Veg Masala" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Veg Masala</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Paneer Butter" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Paneer Butter</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Gobhi" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Gobhi</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Dal Fry" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Dal Fry</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Dal Curry" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Dal Curry</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chana Masala" data-cat="Vegetarian Curry" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chana Masala</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Dessert">
+        <div class="card-header" style="--cat-color:#f472b6;--cat-bg:#1f0010">
+          <div class="cat-icon">🍮</div>
+          <div class="cat-info"><h3 class="cat-title">Dessert</h3><span class="cat-count-badge" id="cnt-dessert">0/10</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-dessert',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-dessert">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Ice Cream" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Ice Cream</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Fruit Salad" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Fruit Salad</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Jilebi Live" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Jilebi Live</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Gulab Jamun" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Gulab Jamun</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Mysore Pak" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Mysore Pak</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Roll Ice Cream" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Roll Ice Cream</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pastries" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pastries</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Pudding" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Pudding</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Kesari" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Kesari</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Payasam" data-cat="Dessert" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Payasam</span></label>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="Extras">
+        <div class="card-header" style="--cat-color:#c084fc;--cat-bg:#12001f">
+          <div class="cat-icon">✨</div>
+          <div class="cat-info"><h3 class="cat-title">Extras</h3><span class="cat-count-badge" id="cnt-extras">0/8</span></div>
+          <button class="cat-select-all" onclick="toggleCategory('cat-extras',this)">Select All</button>
+        </div>
+        <div class="card-body" id="cat-extras">
+          <label class="item-label"><input type="checkbox" class="item-check" value="Live Tea Counter" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Live Tea Counter</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Masala Tea Counter" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Masala Tea Counter</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Thattu Kada" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Thattu Kada</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chocolate Fountain" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chocolate Fountain</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Roll Ice Cream (Extra)" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Roll Ice Cream (Extra)</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Live Tawa Fry" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Live Tawa Fry</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Live Alfam" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Live Alfam</span></label>
+          <label class="item-label"><input type="checkbox" class="item-check" value="Chat Counter" data-cat="Extras" onchange="updateCount()"><span class="checkmark"></span><span class="item-name">Chat Counter</span></label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="includes-section">
+      <h2 class="includes-title">Always Included With Every Package</h2>
+      <div class="includes-grid">
+        <div class="include-item"><span class="include-icon">🗑️</span><span>Waste Management</span></div>
+        <div class="include-item"><span class="include-icon">🎪</span><span>Counter Setting</span></div>
+        <div class="include-item"><span class="include-icon">👔</span><span>Service Staff</span></div>
+        <div class="include-item"><span class="include-icon">🥡</span><span>Disposable Items</span></div>
+        <div class="include-item"><span class="include-icon">💧</span><span>Bottle Water</span></div>
+      </div>
+    </div>
+
+    <div class="bottom-cta">
+      <p class="cta-sub" id="ctaSub">Select your preferred items above and download your custom menu</p>
+      <button class="btn-primary large" onclick="generatePDF()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download My Menu PDF
+      </button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="logo.png" alt="Good Day Events" class="footer-logo" onerror="this.style.display='none'" />
+      <p class="footer-tagline">Making Every Occasion Extraordinary</p>
+      <p class="footer-copy">© 2025 Good Day Events. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

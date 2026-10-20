@@ -136,6 +136,24 @@ body {
   transition: var(--transition);
 }
 .badge:hover { background: rgba(74,222,128,0.2); transform: translateY(-2px); }
+.badge-cta {
+  background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(74,222,128,0.2));
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(201,168,76,0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.badge-cta:hover {
+  background: linear-gradient(135deg, rgba(201,168,76,0.45), rgba(74,222,128,0.35));
+  border-color: var(--gold-light);
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 22px rgba(201,168,76,0.45);
+}
 
 /* Scroll hint */
 .scroll-hint {

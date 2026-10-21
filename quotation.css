@@ -81,39 +81,38 @@ body {
   margin: 0 auto;
   flex-wrap: wrap;
 }
-.q-logo-wrap {
-  flex-shrink: 0;
+.q-logo-brand-wrap {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 8px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(201, 168, 76, 0.3);
+  display: inline-flex;
+  align-items: center;
+  transition: var(--transition);
 }
-.q-logo {
-  width: 74px;
-  height: 74px;
+.q-logo-brand-wrap:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(74, 222, 128, 0.25), 0 0 0 2px var(--gold);
+}
+.q-header-logo-img {
+  height: 62px;
+  width: auto;
   object-fit: contain;
-  border-radius: 50%;
-  background: #ffffff;
-  padding: 5px;
-  box-shadow: 0 0 24px rgba(74, 222, 128, 0.35), 0 0 0 2px var(--gold);
   display: block;
 }
-.q-header-text {
-  flex: 1;
-  min-width: 240px;
+.q-footer-logo-wrap {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 16px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
-.q-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--gold-light);
-  line-height: 1.1;
-  text-shadow: 0 2px 12px rgba(201, 168, 76, 0.25);
-}
-.q-tagline {
-  font-size: 0.95rem;
-  color: var(--accent-green);
-  font-style: italic;
-  font-weight: 400;
-  margin-top: 0.25rem;
-  letter-spacing: 0.01em;
+.q-footer-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 .q-nav-link {
   display: inline-flex;
